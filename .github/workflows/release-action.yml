@@ -71,7 +71,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           name: "Template"
-          tag_name: "0.7.3"
+          tag_name: "0.6.3"
           make_latest: false
           files: |
             Windows x64.zip
