@@ -3,6 +3,7 @@ package;
 #if DISCORD_ALLOWED
 import Discord.DiscordClient;
 #end
+
 import editors.ChartingState;
 import openfl.text.TextField;
 import flixel.FlxG;
@@ -18,6 +19,7 @@ import lime.utils.Assets;
 import flixel.system.FlxSound;
 import openfl.utils.Assets as OpenFlAssets;
 import WeekData;
+
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
@@ -280,11 +282,22 @@ class FreeplayState extends MusicBeatState
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
+
+		#if mobile
 		var space = touchPad.buttonX.justPressed || FlxG.keys.justPressed.SPACE;
 		var ctrl = touchPad.buttonC.justPressed || FlxG.keys.justPressed.CONTROL;
+		#else
+		var space = FlxG.keys.justPressed.SPACE;
+		var ctrl = FlxG.keys.justPressed.CONTROL;
+		#end
 
 		var shiftMult:Int = 1;
+
+		#if mobile
 		if(touchPad.buttonZ.pressed || FlxG.keys.pressed.SHIFT) shiftMult = 3;
+		#else
+		if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
+		#end
 
 		if(songs.length > 1)
 		{
@@ -336,6 +349,7 @@ class FreeplayState extends MusicBeatState
 			MusicBeatState.switchState(new MainMenuState());
 		}
 
+		#if mobile
 		if(ctrl)
 		{
 			touchPad.active = touchPad.visible = persistentUpdate = false;
@@ -366,7 +380,6 @@ class FreeplayState extends MusicBeatState
 				#end
 			}
 		}
-
 		else if (accepted)
 		{
 			persistentUpdate = false;
@@ -391,10 +404,10 @@ class FreeplayState extends MusicBeatState
 			if(colorTween != null) {
 				colorTween.cancel();
 			}
-			
-			if (touchPad.buttonZ.pressed || FlxG.keys.pressed.SHIFT){
+
+			if (touchPad.buttonZ.pressed || FlxG.keys.pressed.SHIFT) {
 				LoadingState.loadAndSwitchState(new ChartingState());
-			}else{
+			} else {
 				LoadingState.loadAndSwitchState(new PlayState());
 			}
 
@@ -408,6 +421,79 @@ class FreeplayState extends MusicBeatState
 			openSubState(new ResetScoreSubState(songs[curSelected].songName, curDifficulty, songs[curSelected].songCharacter));
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 		}
+		#else
+		if(ctrl)
+		{
+			persistentUpdate = false;
+			openSubState(new GameplayChangersSubstate());
+		}
+		else if(space)
+		{
+			if(instPlaying != curSelected)
+			{
+				#if PRELOAD_ALL
+				destroyFreeplayVocals();
+				FlxG.sound.music.volume = 0;
+				Paths.currentModDirectory = songs[curSelected].folder;
+				var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
+				PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
+				if (PlayState.SONG.needsVoices)
+					vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+				else
+					vocals = new FlxSound();
+
+				FlxG.sound.list.add(vocals);
+				FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
+				vocals.play();
+				vocals.persist = true;
+				vocals.looped = true;
+				vocals.volume = 0.7;
+				instPlaying = curSelected;
+				#end
+			}
+		}
+		else if (accepted)
+		{
+			persistentUpdate = false;
+			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
+			var poop:String = Highscore.formatSong(songLowercase, curDifficulty);
+			/*#if MODS_ALLOWED
+			if(!sys.FileSystem.exists(Paths.modsJson(songLowercase + '/' + poop)) && !sys.FileSystem.exists(Paths.json(songLowercase + '/' + poop))) {
+			#else
+			if(!OpenFlAssets.exists(Paths.json(songLowercase + '/' + poop))) {
+			#end
+				poop = songLowercase;
+				curDifficulty = 1;
+				trace('Couldnt find file');
+			}*/
+			trace(poop);
+
+			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
+			PlayState.isStoryMode = false;
+			PlayState.storyDifficulty = curDifficulty;
+
+			trace('CURRENT WEEK: ' + WeekData.getWeekFileName());
+			if(colorTween != null) {
+				colorTween.cancel();
+			}
+
+			if (FlxG.keys.pressed.SHIFT) {
+				LoadingState.loadAndSwitchState(new ChartingState());
+			} else {
+				LoadingState.loadAndSwitchState(new PlayState());
+			}
+
+			FlxG.sound.music.volume = 0;
+					
+			destroyFreeplayVocals();
+		}
+		else if(controls.RESET)
+		{
+			persistentUpdate = false;
+			openSubState(new ResetScoreSubState(songs[curSelected].songName, curDifficulty, songs[curSelected].songCharacter));
+			FlxG.sound.play(Paths.sound('scrollMenu'));
+		}
+		#end
 		super.update(elapsed);
 	}
 
