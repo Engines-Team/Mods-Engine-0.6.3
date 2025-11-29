@@ -3,6 +3,7 @@ package editors;
 #if DISCORD_ALLOWED
 import Discord.DiscordClient;
 #end
+
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxGridOverlay;
@@ -27,10 +28,12 @@ import openfl.events.IOErrorEvent;
 import openfl.net.FileFilter;
 import lime.system.Clipboard;
 import haxe.Json;
+
 #if sys
 import sys.io.File;
 import sys.FileSystem;
 #end
+
 import WeekData;
 
 using StringTools;
@@ -634,7 +637,11 @@ class WeekEditorFreeplayState extends MusicBeatState
 
 		addEditorBox();
 		changeSelection();
+
+		#if mobile
 		addTouchPad("UP_DOWN", "B");
+		#end
+		
 		super.create();
 	}
 	
@@ -695,6 +702,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 	var bgColorStepperG:FlxUINumericStepper;
 	var bgColorStepperB:FlxUINumericStepper;
 	var iconInputText:FlxUIInputText;
+	
 	function addFreeplayUI() {
 		var tab_group = new FlxUI(null, UI_box);
 		tab_group.name = "Freeplay";
