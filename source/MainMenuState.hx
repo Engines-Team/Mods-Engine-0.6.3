@@ -26,6 +26,7 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
+	public static var modsEngineVersion:String = '5.0.0'; // Latest Version bcuz v1.0.0 so late these today and This is also used for Discord RPC
 	public static var psychEngineVersion:String = '0.6.3'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
@@ -108,6 +109,14 @@ class MainMenuState extends MusicBeatState
 		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		magenta.color = 0xFFfd719b;
 		add(magenta);
+
+		switch (ClientPrefs.data.themes) {
+			case 'Mods Engine':
+				magenta.color = 0xFF000080;
+			
+			case 'Psych Engine':
+				magenta.color = 0xFFFD719B;
+		}
 		
 		// magenta.scrollFactor.set();
 
@@ -142,6 +151,24 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 
+		modsEngineLogo = new FlxSprite(0).loadGraphic(Paths.image('modsEngineLogo'));
+		modsEngineLogo.scrollFactor.x = 0;
+		modsEngineLogo.scrollFactor.y = 0;
+		modsEngineLogo.antialiasing = ClientPrefs.data.antialiasing;
+		modsEngineLogo.visible = true;
+		modsEngineLogo.setGraphicSize(Std.int(bg.width * 0.32));
+		modsEngineLogo.updateHitbox();
+		modsEngineLogo.screenCenter();
+		modsEngineLogo.x = 735;
+		modsEngineLogo.y = 233;
+		modsEngineLogo.scale.x = 0.5;
+		modsEngineLogo.scale.y = 0.5;
+		add(modsEngineLogo);
+
+		var modsVer:FlxText = new FlxText(12, FlxG.height - 64, 0, "Mods Engine v" + modsEngineVersion, 12);
+		modsVer.scrollFactor.set();
+		modsVer.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(modsVer);
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
