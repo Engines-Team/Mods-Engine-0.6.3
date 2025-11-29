@@ -3,6 +3,7 @@ package options;
 #if DISCORD_ALLOWED
 import Discord.DiscordClient;
 #end
+
 import openfl.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -242,6 +243,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				}
 			}
 
+			#if mobile
 			if(touchPad.buttonC.justPressed || controls.RESET)
 			{
 				for (i in 0...optionsArray.length)
@@ -261,6 +263,27 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				reloadCheckboxes();
 			}
+			#else
+			if(controls.RESET)
+			{
+				for (i in 0...optionsArray.length)
+				{
+					var leOption:Option = optionsArray[i];
+					leOption.setValue(leOption.defaultValue);
+					if(leOption.type != 'bool')
+					{
+						if(leOption.type == 'string')
+						{
+							leOption.curOption = leOption.options.indexOf(leOption.getValue());
+						}
+						updateTextFrom(leOption);
+					}
+					leOption.change();
+				}
+				FlxG.sound.play(Paths.sound('cancelMenu'));
+				reloadCheckboxes();
+			}
+			#end
 		}
 
 		if(boyfriend != null && boyfriend.animation.curAnim.finished) {
