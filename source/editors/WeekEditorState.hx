@@ -457,6 +457,7 @@ class WeekEditorState extends MusicBeatState
 			if(touchPad.buttonB.justPressed || FlxG.keys.justPressed.ESCAPE) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			}
 			#else
 			if(FlxG.keys.justPressed.ESCAPE) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
