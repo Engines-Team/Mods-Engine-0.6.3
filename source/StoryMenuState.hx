@@ -3,6 +3,7 @@ package;
 #if DISCORD_ALLOWED
 import Discord.DiscordClient;
 #end
+
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
@@ -185,15 +186,21 @@ class StoryMenuState extends MusicBeatState
 		changeWeek();
 		changeDifficulty();
 
+		#if mobile
 		addTouchPad("LEFT_FULL", "A_B_X_Y");
+		#end
 
 		super.create();
 	}
 
 	override function closeSubState() {
 		persistentUpdate = true;
+
+		#if mobile
 		removeTouchPad();
 		addTouchPad("LEFT_FULL", "A_B_X_Y");
+		#end
+		
 		changeWeek();
 		super.closeSubState();
 	}
@@ -212,6 +219,7 @@ class StoryMenuState extends MusicBeatState
 		{
 			var upP = controls.UI_UP_P;
 			var downP = controls.UI_DOWN_P;
+			
 			if (upP)
 			{
 				changeWeek(-1);
@@ -248,6 +256,7 @@ class StoryMenuState extends MusicBeatState
 			else if (upP || downP)
 				changeDifficulty();
 
+			#if mobile
 			if(touchPad.buttonX.justPressed || FlxG.keys.justPressed.CONTROL)
 			{
 				touchPad.active = touchPad.visible = persistentUpdate = false;
@@ -263,6 +272,23 @@ class StoryMenuState extends MusicBeatState
 			{
 				selectWeek();
 			}
+			#else
+			if(FlxG.keys.justPressed.CONTROL)
+			{
+				persistentUpdate = false;
+				openSubState(new GameplayChangersSubstate());
+			}
+			else if(controls.RESET)
+			{
+				persistentUpdate = false;
+				openSubState(new ResetScoreSubState('', curDifficulty, '', curWeek));
+				//FlxG.sound.play(Paths.sound('scrollMenu'));
+			}
+			else if (controls.ACCEPT)
+			{
+				selectWeek();
+			}
+			#end
 		}
 
 		if (controls.BACK && !movedBack && !selectedWeek)
