@@ -46,10 +46,10 @@ class ClientPrefs {
 	public static var pauseMusic:String = 'Tea Time';
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
-	public static var gameplaySettings:Map<String, Dynamic> = [
 	public static var antialiasing:Bool = true;
 	public static var iconBops:Bool = true;
 	public static var themes:String = 'Mods Engine';
+	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative', 
 		// anyone reading this, amod is multiplicative speed mod, cmod is constant speed mod, and xmod is bpm based speed mod.
