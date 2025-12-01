@@ -35,7 +35,7 @@ class OutdatedState extends MusicBeatState
 			please update to " + TitleState.updateVersion + "!\n
 			Press B to proceed anyway.\n
 			\n
-			Thank you for using the Port!"
+			Thank you for using the Port!",
 			32);
 		warnTextMobile.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		warnTextMobile.screenCenter(Y);
@@ -47,7 +47,7 @@ class OutdatedState extends MusicBeatState
 			please update to " + TitleState.updateVersion + "!\n
 			Press ESCAPE to proceed anyway.\n
 			\n
-			Thank you for using the Port!"
+			Thank you for using the Port!",
 			32);
 		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
