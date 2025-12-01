@@ -4,6 +4,8 @@ package options;
 import Discord.DiscordClient;
 #end
 
+import MainMenuState;
+import StageData;
 import openfl.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -81,10 +83,16 @@ class OptionsState extends MusicBeatState
 		#end
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.color = 0xFFea71fd;
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		switch (ClientPrefs.data.themes) {
+			case 'Mods Engine':
+				bg.color = 0xFF000080;
+			
+			case 'Psych Engine':
+				bg.color = 0xFFEA71FD;
+		}
 		bg.updateHitbox();
 		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
 		#if mobile

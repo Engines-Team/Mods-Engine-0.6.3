@@ -70,6 +70,19 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
+		var option:Option = new Option('Bot Play Name:',
+			"'Normal': Nothing change,\n'Song Name': change BOTPLAY to This Song you play it,\n'None': make BOTPLAY not visible.",
+			'botplayName',
+			'string',
+			['Normal', 'Song Name', 'None']);
+		addOption(option);
+
+		var option:Option = new Option('Icon Bounce',
+			'If checked, icon bounce on angle.',
+			'iconBops',
+			'bool');
+		addOption(option);
+
 		var option:Option = new Option('Pop Up Score',
 			"If unchecked, hitting notes won't make \"sick\", \"good\".. and combo popups.",
 			'popUpRating',

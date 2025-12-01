@@ -60,6 +60,13 @@ class VisualsUISubState extends BaseOptionsMenu
 			['Time Left', 'Time Elapsed', 'Song Name', 'Disabled']);
 		addOption(option);
 
+		var option:Option = new Option('HUD Coloring:',
+			"If 'On': make HUD Color like Opponent Health Bar include Time Bar,\nIf 'Time Bar Only': make Time Bar Color like Opponent Health Bar Only.",
+			'hudColor',
+			'string',
+			['Off', 'Time Bar Only', 'On']);
+		addOption(option);
+
 		var option:Option = new Option('Flashing Lights',
 			"Uncheck this if you're sensitive to flashing lights!",
 			'flashing',
@@ -131,18 +138,17 @@ class VisualsUISubState extends BaseOptionsMenu
 		addOption(option);
 		#end
 
-		var option:Option = new Option('Combo Stacking',
-			"If unchecked, Ratings and Combo won't stack, saving on System Memory and making them easier to read",
-			'comboStacking',
-			'bool',
-			true);
-		addOption(option);
-
-		var option:Option = new Option('Themes',
-		    "Change theme from different engines.\nThis option is on alpha state, so maybe can be buggy!",
+		var option:Option = new Option('Themes:',
+		    'Change theme from different engines.\nThis option will work after close Options, for less lag!',
 			'themes',
 		    'string',
 			['Mods Engine', 'Psych Engine']);
+		addOption(option);
+
+		var option:Option = new Option('Grid Title',
+			"If checked, make the Title or Song Intro have Grid.",
+			'gridTitle',
+			'bool');
 		addOption(option);
 
 		super();

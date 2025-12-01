@@ -1044,7 +1044,17 @@ class PlayState extends MusicBeatState
 
 		strumLine = new FlxSprite(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, 50).makeGraphic(FlxG.width, 10);
 		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
+		if(ClientPrefs.data.timeBarType == 'Song Name')
 		strumLine.scrollFactor.set();
+		{
+			switch (ClientPrefs.botplayName) {
+				case 'Normal':
+					timeTxt.text = SONG.song;
+
+				case 'None':
+					timeTxt.text = SONG.song;
+			}
+		}
 
 		var showTime:Bool = (ClientPrefs.timeBarType != 'Disabled');
 		timeTxt = new FlxText(STRUM_X + (FlxG.width / 2) - 248, 19, 400, "", 32);
@@ -1216,6 +1226,14 @@ class PlayState extends MusicBeatState
 
 		// cameras = [FlxG.cameras.list[1]];
 		startingSong = true;
+
+		switch (ClientPrefs.data.hudColor) {
+			case 'Time Bar Only':
+				reloadTimeBarColor();
+			
+			case 'On':
+				reloadHUDColor();
+		}
 		
 		#if LUA_ALLOWED
 		for (notetype in noteTypeMap.keys())
@@ -3115,6 +3133,18 @@ class PlayState extends MusicBeatState
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
 		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
 
+		dancingLeft = !dancingLeft;
+
+		if (ClientPrefs.iconBops == true) {
+			if (dancingLeft) {
+				iconP1.angle = 8;
+				iconP2.angle = 8; // maybe i should do it with tweens, but i'm lazy // i'll make it in -1.0.0, i promise
+			} else { 
+				iconP1.angle = -8;
+				iconP2.angle = -8;
+			}
+		}
+
 		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
 		iconP1.scale.set(mult, mult);
 		iconP1.updateHitbox();
@@ -3138,17 +3168,17 @@ class PlayState extends MusicBeatState
 			if (healthBar.percent > 80)
 			iconP1.animation.curAnim.curFrame = 2;
 			else if (healthBar.percent < 20)
-			iconP1.animation.curAnim.curFrame = 0;
-			else
 			iconP1.animation.curAnim.curFrame = 1;
+			else
+			iconP1.animation.curAnim.curFrame = 0;
 
 			// Player 2 icon logic
 			if (healthBar.percent > 80)
-			iconP2.animation.curAnim.curFrame = 0;
+			iconP2.animation.curAnim.curFrame = 1;
 			else if (healthBar.percent < 20)
 			iconP2.animation.curAnim.curFrame = 2;
 			else
-			iconP2.animation.curAnim.curFrame = 1;
+			iconP2.animation.curAnim.curFrame = 0;
 		}
 
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {

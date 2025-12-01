@@ -48,6 +48,8 @@ class ClientPrefs {
 	public static var comboStacking = true;
 	public static var antialiasing:Bool = true;
 	public static var iconBops:Bool = true;
+	public static var botplayName:String = 'Song Name';
+	public static var hudColor:String = 'On';
 	public static var themes:String = 'Mods Engine';
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
