@@ -163,7 +163,7 @@ class MainMenuState extends MusicBeatState
 		modsEngineLogo = new FlxSprite(0).loadGraphic(Paths.image('modsEngineLogoOld'));
 		modsEngineLogo.scrollFactor.x = 0;
 		modsEngineLogo.scrollFactor.y = 0;
-		modsEngineLogo.antialiasing = ClientPrefs.data.antialiasing;
+		modsEngineLogo.antialiasing = ClientPrefs.globalAntialiasing;
 		modsEngineLogo.visible = true;
 		modsEngineLogo.setGraphicSize(Std.int(bg.width * 0.32));
 		modsEngineLogo.updateHitbox();
@@ -177,7 +177,7 @@ class MainMenuState extends MusicBeatState
 		modsEngineLogo = new FlxSprite(0).loadGraphic(Paths.image('modsEngineLogo'));
 		modsEngineLogo.scrollFactor.x = 0;
 		modsEngineLogo.scrollFactor.y = 0;
-		modsEngineLogo.antialiasing = ClientPrefs.antialiasing;
+		modsEngineLogo.antialiasing = ClientPrefs.globalAntialiasing;
 		modsEngineLogo.visible = true;
 		modsEngineLogo.setGraphicSize(Std.int(bg.width * 0.32));
 		modsEngineLogo.updateHitbox();
