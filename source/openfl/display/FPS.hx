@@ -5,6 +5,11 @@ import openfl.events.Event;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 import flixel.math.FlxMath;
+import flixel.FlxG;
+import openfl.text.TextField;
+import openfl.text.TextFormat;
+import openfl.system.System as OpenFlSystem;
+import lime.system.System as LimeSystem;
 
 #if gl_stats
 import openfl.display._internal.stats.Context3DStats;
@@ -59,7 +64,9 @@ class FPS extends TextField
 		super();
 
 		if (LimeSystem.platformName == LimeSystem.platformVersion || LimeSystem.platformVersion == null)
-		os = '\nOS: ${LimeSystem.platformName} ${getArch() != 'Unknown' ? getArch() : ''} ${(LimeSystem.platformName == LimeSystem.platformVersion || LimeSystem.platformVersion == null) ? '' : '- ' + LimeSystem.platformVersion}';
+			os = '\nOS: ${LimeSystem.platformName}' #if cpp + ' ${getArch() != 'Unknown' ? getArch() : ''}' #end;
+		else
+			os = '\nOS: ${LimeSystem.platformName}' #if cpp + ' ${getArch() != 'Unknown' ? getArch() : ''}' #end + ' - ${LimeSystem.platformVersion}';
 		engineVersion = '\nMods Engine v${states.MainMenuState.modsEngineVersion}';
 
 		#if mobile
