@@ -170,7 +170,7 @@ class FunkinLua {
 		set('rating', 0);
 		set('ratingName', '');
 		set('ratingFC', '');
-		set('version', MainMenuState.psychEngineVersion.trim());
+		set('version', MainMenuState.modsEngineVersion.trim());
 
 		set('inGameOver', false);
 		set('mustHitSection', false);
@@ -210,6 +210,11 @@ class FunkinLua {
 		set('middlescroll', ClientPrefs.middleScroll);
 		set('framerate', ClientPrefs.framerate);
 		set('ghostTapping', ClientPrefs.ghostTapping);
+		set('botplayName', ClientPrefs.botplayName);
+		set('hideHud', ClientPrefs.hideHud);
+		set('timeBarType', ClientPrefs.timeBarType);
+		set('hudColor', ClientPrefs.hudColor);
+		set('iconBops', ClientPrefs.iconBops);
 		set('hideHud', ClientPrefs.hideHud);
 		set('timeBarType', ClientPrefs.timeBarType);
 		set('scoreZoom', ClientPrefs.scoreZoom);

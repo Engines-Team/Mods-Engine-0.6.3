@@ -25,6 +25,7 @@ import flixel.addons.effects.chainable.FlxWaveEffect;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.graphics.atlas.FlxAtlas;
 import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.group.FlxSpriteGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
@@ -342,6 +343,8 @@ class PlayState extends MusicBeatState
 	#end
 
 	public var dancingLeft:Bool = false;
+
+	public var uiGroup:FlxSpriteGroup;
 
 	override public function create()
 	{
