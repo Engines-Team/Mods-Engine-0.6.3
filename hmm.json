@@ -32,6 +32,11 @@
       "version": "2.5.0"
     },
     {
+      "name": "flixel-tools",
+      "type": "haxelib",
+      "version": "1.5.1"
+    },
+    {
       "name": "hscript",
       "type": "haxelib",
       "version": "2.5.0"
