@@ -4105,8 +4105,8 @@ class PlayState extends MusicBeatState
 			return;
 		} else {
 			var achieve:String = checkForAchievement(['week1_nomiss', 'week2_nomiss', 'week3_nomiss', 'week4_nomiss',
-				'week5_nomiss', 'week6_nomiss', 'week7_nomiss', 'ur_bad',
-				'ur_good', 'hype', 'two_keys', 'toastie', 'debugger']);
+													  'week5_nomiss', 'week6_nomiss', 'week7_nomiss', 'ur_bad',
+													  'ur_good', 'hype', 'two_keys', 'toastie', 'debugger']);
 
 			if(achieve != null) {
 				startAchievement(achieve);
@@ -4612,7 +4612,9 @@ class PlayState extends MusicBeatState
 	#if mobile
 	private function onButtonPress(button:TouchButton):Void
 	{
-		var buttonCode:Int = (button.IDs[0].toString().startsWith('NOTE')) ? button.IDs[0] : button.IDs[1];
+		// var buttonCode:Int = (button.IDs[0].toString().startsWith('NOTE')) ? button.IDs[0] : button.IDs[1];
+
+		var buttonCode:Int = if (button.IDs.filter(id -> id.toString().startsWith("EXTRA")).length > 0) return;
 
 		if (!cpuControlled && startedCountdown && !paused && buttonCode > -1 && button.justPressed)
 		{
