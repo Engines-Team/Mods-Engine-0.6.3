@@ -132,6 +132,11 @@ class MainMenuState extends MusicBeatState
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
 
+		var scale:Float = 1;
+		/*if(optionShit.length > 6) {
+			scale = 6 / optionShit.length;
+		}*/
+
 		for (i in 0...optionShit.length)
 		{
 			var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
@@ -145,7 +150,7 @@ class MainMenuState extends MusicBeatState
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
 			menuItems.add(menuItem);
-			var scale:Float = (optionShit.length - 4) * 0.135;
+			var src:Float = (optionShit.length - 4) * 0.135;
 			if (optionShit.length < 6) scr = 0;
 			menuItem.scrollFactor.set(0, scr);
 			menuItem.updateHitbox();
@@ -390,7 +395,6 @@ class MainMenuState extends MusicBeatState
 		menuItems.forEach(function(spr:FlxSprite)
 		{
 			spr.screenCenter(X);
-        menuItem.x = 95;
 		});
 	}
 
