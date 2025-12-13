@@ -3220,7 +3220,7 @@ class PlayState extends MusicBeatState
 		if (health > 2) health = 2;
 
 		// Safe check
-		if (iconP1.animation.curAnim != null && iconP2.animation.curAnim != null)
+		else if (iconP1.animation != null && iconP1.animation.curAnim != null)
 		{	
 			// Player 1 icon logic
 			if (healthBar.percent > 80)
@@ -3229,7 +3229,12 @@ class PlayState extends MusicBeatState
 			iconP1.animation.curAnim.curFrame = 1;
 			else
 			iconP1.animation.curAnim.curFrame = 0;
-
+			else {
+			iconP1.animation.curAnim.curFrame = (healthBar.percent < 20) ? 0 : 1;
+			}
+		}
+		else if (iconP2.animation != null && iconP2.animation.curAnim != null)
+		{
 			// Player 2 icon logic
 			if (healthBar.percent > 80)
 			iconP2.animation.curAnim.curFrame = 1;
@@ -3237,8 +3242,21 @@ class PlayState extends MusicBeatState
 			iconP2.animation.curAnim.curFrame = 2;
 			else
 			iconP2.animation.curAnim.curFrame = 0;
+			else {
+			iconP2.animation.curAnim.curFrame = (healthBar.percent > 80) ? 0 : 1;
+			}
 		}
-
+		else 
+			
+		if (healthBar.percent < 20)
+			iconP1.animation.curAnim.curFrame = 1;
+		else
+			iconP1.animation.curAnim.curFrame = 0;
+		if (healthBar.percent > 80)
+			iconP2.animation.curAnim.curFrame = 1;
+		else
+			iconP2.animation.curAnim.curFrame = 0;
+		
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
 			persistentUpdate = false;
 			paused = true;
