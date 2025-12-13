@@ -3220,42 +3220,43 @@ class PlayState extends MusicBeatState
 		if (health > 2) health = 2;
 
 		// Safe check
-		else if (iconP1.animation != null && iconP1.animation.curAnim != null)
-		{	
-			// Player 1 icon logic
-			if (healthBar.percent > 80)
-			iconP1.animation.curAnim.curFrame = 2;
-			else if (healthBar.percent < 20)
-			iconP1.animation.curAnim.curFrame = 1;
-			else
-			iconP1.animation.curAnim.curFrame = 0;
-			else {
-			iconP1.animation.curAnim.curFrame = (healthBar.percent < 20) ? 0 : 1;
+		if (iconP1.animation != null && iconP1.animation.curAnim != null)
+			{
+				var frames = iconP1.animation.curAnim.frames;
+				var numFrames = (frames != null) ? frames.length : 2;
+
+				if (numFrames >= 3)
+				{
+					if (healthBar.percent > 80)
+						iconP1.animation.curAnim.curFrame = 2;
+					else if (healthBar.percent < 20)
+						iconP1.animation.curAnim.curFrame = 1;
+					else
+						iconP1.animation.curAnim.curFrame = 0;
+				} else {
+					iconP1.animation.curAnim.curFrame = (healthBar.percent < 20) ? 0 : 1;
+				}
 			}
 		}
 		else if (iconP2.animation != null && iconP2.animation.curAnim != null)
 		{
-			// Player 2 icon logic
-			if (healthBar.percent > 80)
-			iconP2.animation.curAnim.curFrame = 1;
-			else if (healthBar.percent < 20)
-			iconP2.animation.curAnim.curFrame = 2;
-			else
-			iconP2.animation.curAnim.curFrame = 0;
-			else {
-			iconP2.animation.curAnim.curFrame = (healthBar.percent > 80) ? 0 : 1;
-			}
-		}
-		else 
-			
-		if (healthBar.percent < 20)
-			iconP1.animation.curAnim.curFrame = 1;
-		else
-			iconP1.animation.curAnim.curFrame = 0;
-		if (healthBar.percent > 80)
-			iconP2.animation.curAnim.curFrame = 1;
-		else
-			iconP2.animation.curAnim.curFrame = 0;
+			{
+				var frames = iconP2.animation.curAnim.frames;
+				var numFrames = (frames != null) ? frames.length : 2;
+
+				if (numFrames >= 3)
+				{
+					if (healthBar.percent > 80)
+						iconP2.animation.curAnim.curFrame = 1;
+					else if (healthBar.percent < 20)
+						iconP2.animation.curAnim.curFrame = 2;
+					else
+						iconP2.animation.curAnim.curFrame = 0;
+				} 
+				else 
+				{
+					iconP2.animation.curAnim.curFrame = (healthBar.percent > 80) ? 0 : 1;
+				}
 		
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
 			persistentUpdate = false;
