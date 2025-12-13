@@ -1,6 +1,5 @@
 package;
 
-import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.FlxSprite;
 import openfl.utils.Assets as OpenFlAssets;
 
@@ -16,12 +15,12 @@ class HealthIcon extends FlxSprite
 	private var char:String = '';
 	private var iconOffsets:Array<Float> = [0, 0];
 
-	public function new(char:String = 'bf', isPlayer:Bool = false, ?allowGPU:Bool = true)
+	public function new(char:String = 'bf', isPlayer:Bool = false)
 	{
 		super();
 		isOldIcon = (char == 'bf-old');
 		this.isPlayer = isPlayer;
-		changeIcon(char);
+		changeIcon(char, allowGPU);
 		scrollFactor.set();
 	}
 
@@ -48,8 +47,7 @@ class HealthIcon extends FlxSprite
 			baseName = 'icons/icon-' + char;
 		if (!Paths.fileExists('images/' + baseName + '.png', IMAGE))
 			baseName = 'icons/icon-face';
-		
-			var graphic = Paths.image(baseName);
+			var graphic = Paths.image(baseName,);
 
 			var frameWidth:Int = Math.floor(graphic.height);
 			var frameCount:Int = Math.floor(graphic.width / frameWidth);
@@ -70,7 +68,7 @@ class HealthIcon extends FlxSprite
 		if (char.endsWith('-pixel'))
 			antialiasing = false;
 		else
-			antialiasing = ClientPrefs.antialiasing;
+			antialiasing = ClientPrefs.data.antialiasing;
 	}
 
 	override function updateHitbox()
