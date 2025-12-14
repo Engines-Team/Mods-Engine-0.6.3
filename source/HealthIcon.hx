@@ -68,7 +68,7 @@ class HealthIcon extends FlxSprite
 		if (char.endsWith('-pixel'))
 			antialiasing = false;
 		else
-			antialiasing = ClientPrefs.GlobalAntialiasing;
+			antialiasing = ClientPrefs.globalAntialiasing;
 	}
 
 	override function updateHitbox()
