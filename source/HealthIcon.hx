@@ -20,7 +20,7 @@ class HealthIcon extends FlxSprite
 		super();
 		isOldIcon = (char == 'bf-old');
 		this.isPlayer = isPlayer;
-		changeIcon(char, allowGPU);
+		changeIcon(char);
 		scrollFactor.set();
 	}
 
@@ -68,7 +68,7 @@ class HealthIcon extends FlxSprite
 		if (char.endsWith('-pixel'))
 			antialiasing = false;
 		else
-			antialiasing = ClientPrefs.data.antialiasing;
+			antialiasing = ClientPrefs.GlobalAntialiasing;
 	}
 
 	override function updateHitbox()
