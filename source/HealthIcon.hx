@@ -47,7 +47,7 @@ class HealthIcon extends FlxSprite
 			baseName = 'icons/icon-' + char;
 		if (!Paths.fileExists('images/' + baseName + '.png', IMAGE))
 			baseName = 'icons/icon-face';
-			var graphic = Paths.image(baseName,);
+			var graphic = Paths.image(baseName);
 
 			var frameWidth:Int = Math.floor(graphic.height);
 			var frameCount:Int = Math.floor(graphic.width / frameWidth);
