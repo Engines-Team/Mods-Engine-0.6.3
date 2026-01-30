@@ -16,8 +16,10 @@
     },
     {
       "name": "flixel",
-      "type": "haxelib",
-      "version": "5.2.2"
+      "type": "git",
+      "dir": null,
+      "ref": "master",
+      "url": "https://github.com/AliAlafandy/flixel-alafandy-0.6.3"
     },
     {
       "name": "flixel-addons",
