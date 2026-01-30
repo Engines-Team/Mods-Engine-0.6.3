@@ -6,7 +6,7 @@ permissions:
   discussions: write
 
 env:
-  PROJECT_NAME: PsychEngine
+  PROJECT_NAME: ModsEngine
 
 jobs:
   build:
@@ -125,8 +125,8 @@ jobs:
       - name: Publish The Release
         uses: softprops/action-gh-release@v2
         with:
-          name: "Template"
-          tag_name: "0.6.3"
+          name: "5.9.9"
+          tag_name: "5.9.9"
           last_release: false
           files: |
             /home/runner/*.apk
